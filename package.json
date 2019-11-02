@@ -1,0 +1,17 @@
+{
+  "name": "odometertracker",
+  "version": "0.1.0",
+  "description": "simple way for tracking odometer and time",
+  "main": "index.js",
+  "scripts": {
+    "start": "parcel index.html"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "UNLICENSED",
+  "private": true,
+  "devDependencies": {
+    "parcel-bundler": "^1.12.4",
+    "sass": "^1.23.3"
+  }
+}
