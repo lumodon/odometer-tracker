@@ -1,75 +1,181 @@
 * {
   box-sizing: border-box;
 }
-.templates {
-  display: none;
+body {
+  overflow: hidden;
+  margin: 0;
+}
+button {
+  outline: none;
 }
 .odometer {
   display: flex;
 }
-.timestamp {
-  display: flex;
-  align-items: center;
-  justify-content: space-around;
-  width: 344px;
-  margin: 5px 8px;
-  .time-display {
-    border: 1px solid gray;
-    border-radius: 5px;
-    width: 229px;
-    height: 70px;
-    flex: 0 1 229px;
-    font-size: 50px;
-    text-align: center;
-    font-family: Arial, Helvetica, sans-serif;
-    padding-top: 4px;
+.disabled {
+  display: none
+}
+.blur {
+  filter: blur(2px)
+}
+
+.overlay {
+  display: none;
+  position: absolute;
+  z-index: 2;
+  width: 100vw;
+  height: 100vh;
+  background: rgba(255, 255, 255, 0.6);
+  &.active {
+    display: block;
   }
-  .capture-now {
-    width: 70px;
-    height: 70px;
-    flex: 0 1 70px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    text-align: center;
-    border: 1px solid black;
-    border-radius: 50%;
-    outline: none;
-    .fas {
-      width: 59px;
-      height: 69px;
-      padding-bottom: 6px;
-    }
+}
+
+.toggle-menu {
+  &:active {
+    background-color: #8af;
+  }
+  .toggle-menu-icon {
+    height: 34px;
+  }
+}
+
+.sidebar {
+  position: absolute;
+  z-index: 3;
+  top: 0;
+  left: -210px;
+  width: 205px;
+  padding-left: 60px;
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background-color: #255;
+  transition-delay: 0s;
+  transition-property: left;
+  transition-duration: 500ms;
+  transition-timing-function: cubic-bezier(0.175, 0.885, 0.32, 1.275);
+  .toggle-menu {
+    align-self: flex-end;
+    padding: 0 3px;
+    margin: 4px;
+  }
+  &.active {
+    left: -60px;
+  }
+  button {
+    color: white;
+    font-size: 24px;
+    font-weight: bolder;
     &:active {
-      background-color: #8af;
+      color: #8af;
     }
   }
 }
-.editable-number {
+
+.nav {
+  width: 100vw;
+  height: 40px;
   display: flex;
-  margin: 2px;
-  flex-direction: column;
-  justify-content: center;
+  justify-content: space-around;
   align-items: center;
-  width: 53px;
-  * {
-    outline: none;
+  .menu {
+    margin: 2vw 0;
+  }
+  .notification {
+    width: 85vw;
+    height: 40px;
+    font-size: 25px;
+    font-family: Arial, Helvetica, sans-serif;
+  }
+}
+
+.container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  .save {
+    width: 150px;
+    height: 80px;
+    border: 3px outset #68ff33;
+    border-radius: 15px;
+    background-color: #88f019;
+  }
+  .timestamp {
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+    width: 344px;
+    margin: 5px 8px;
+    .time-display {
+      border: 1px solid gray;
+      border-radius: 5px;
+      width: 229px;
+      height: 70px;
+      flex: 0 1 229px;
+      font-size: 50px;
+      text-align: center;
+      font-family: Arial, Helvetica, sans-serif;
+      padding-top: 4px;
+    }
+    .capture-now {
+      width: 70px;
+      height: 70px;
+      flex: 0 1 70px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      text-align: center;
+      border: 1px solid black;
+      border-radius: 50%;
+      background-color: white;
+      .fas {
+        width: 59px;
+        height: 69px;
+        padding-bottom: 6px;
+      }
+      &:active {
+        background-color: #8af;
+      }
+    }
+  }
+  .editable-number {
+    display: flex;
+    margin: 2px;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
     width: 53px;
-    font-size: 15px;
-  }
-  .up, .down {
-    border: 1px solid gray;
-    &:hover {
-      background-color: #ddd
+    * {
+      width: 53px;
+      font-size: 15px;
     }
-    &:active {
-      background-color: #777;
+    .up, .down {
+      border: 1px solid gray;
+      &:hover {
+        background-color: #ddd
+      }
+      &:active {
+        background-color: #777;
+      }
+    }
+    .number {
+      font-size: 40px;
+      text-align: center;
+      font-family: monospace;
+      font-weight: bold;
     }
   }
-  .number {
-    font-size: 40px;
-    text-align: center;
-    font-family: monospace;
-    font-weight: bold;
+}
+
+.footer {
+  position: absolute;
+  bottom: 0;
+  height: 30px;
+  width: 100vw;
+  padding: 0 8px;
+  .icons-notifications {
+    white-space: nowrap;
   }
 }

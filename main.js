@@ -54,6 +54,7 @@
         return
       }
       numberNode.innerText = String(currVal + 1)
+      saveState()
     })
     number.querySelector('.down').addEventListener('click', () => {
       const currVal = Number(numberNode.innerText)
@@ -62,6 +63,7 @@
         return
       }
       numberNode.innerText = String(currVal - 1)
+      saveState()
     })
   }
 
@@ -84,12 +86,30 @@
     timestamp.querySelector('.capture-now').addEventListener('click', () => {
       const dateCapture = formatTime(new Date())
       qsT(timestamp, '.time-display', dateCapture)
+      saveState()
     })
+  }
+
+  const toggleSidebar = () => {
+    const toggleNodes = [qs`.sidebar`, qs`.overlay`]
+    const method = Array.from(toggleNodes[0].classList)
+      .includes('active') ? 'remove' : 'add'
+    toggleNodes.forEach(node => {
+      node.classList[method]('active')
+    })
+    qs`.container`.classList[method]('blur')
   }
 
   document.addEventListener('DOMContentLoaded', () => {
     window.addEventListener('beforeunload', saveState)
-    qs`.save`.addEventListener('click', saveState)
+    qs`.save`.addEventListener('click', () => {
+      // parent list append values
+      saveState()
+    })
+
+    qsa`.toggle-menu`.forEach(btn => {
+      btn.addEventListener('click', toggleSidebar)
+    })
 
     let it = 0
     while(it++ < 6) {
