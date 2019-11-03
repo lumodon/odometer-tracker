@@ -1,8 +1,55 @@
+* {
+  box-sizing: border-box;
+}
 .templates {
   display: none;
 }
 .odometer {
   display: flex;
+}
+.capture {
+  display: none;
+  flex: 0 0 0px;
+  width: 0px;
+  height: 0px;
+}
+.timestamp {
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+  width: 344px;
+  margin: 5px 8px;
+  .time-display {
+    border: 1px solid gray;
+    border-radius: 5px;
+    width: 229px;
+    height: 70px;
+    flex: 0 1 229px;
+    font-size: 50px;
+    text-align: center;
+    font-family: Arial, Helvetica, sans-serif;
+    padding-top: 4px;
+  }
+  .capture-now {
+    width: 70px;
+    height: 70px;
+    flex: 0 1 70px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    border: 1px solid black;
+    border-radius: 50%;
+    outline: none;
+    .fas {
+      width: 59px;
+      height: 69px;
+      padding-bottom: 6px;
+    }
+    &:active {
+      background-color: #8af;
+    }
+  }
 }
 .editable-number {
   display: flex;

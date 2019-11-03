@@ -5,17 +5,29 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
   <link rel="stylesheet" href="./styles.scss">
+  <script src="https://kit.fontawesome.com/ce21c3b104.js" crossorigin="anonymous"></script>
   <title>Tracker</title>
 </head>
 <body>
   <div class="container">
     <div class="odometer"></div>
+    <div class="timestamp"></div>
   </div>
   <div class="templates">
     <div class="editable-number">
       <button class="up">&#9650</button>
       <span class="number"></span>
       <button class="down">&#9660</button>
+    </div>
+    <div class="timestamp">
+      <button class="capture-now">
+        <img
+          class="fas"
+          src="./stopwatch-timer.svg"
+          alt="Image of stop watch"
+        />
+      </button>
+      <span class="time-display"></span>
     </div>
   </div>
   <script type="module" src="./main.js"></script>

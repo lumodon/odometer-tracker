@@ -2,7 +2,7 @@
   const qs = sel => document.querySelector(sel)
   const qsa = sel => Array.from(document.querySelectorAll(sel))
   const cln = (node, parent) => {
-    const clonedNode = qs(node).cloneNode(true)
+    const clonedNode = qs`.templates`.querySelector(node).cloneNode(true)
     qs(parent).appendChild(clonedNode)
     return clonedNode
   }
@@ -33,10 +33,33 @@
     })
   }
 
+  function formatTime(time) {
+    let ampm = 'AM'
+    let hour = time.getHours()
+    if(hour > 12) {
+      hour = hour - 12
+      ampm = 'PM'
+    }
+    let minute = time.getMinutes()
+    if(minute < 10) {
+      minute = `0${minute}`
+    }
+    return `${hour}:${minute} ${ampm}`
+  }
+
+  const createTimestampable = (parent) => {
+    const timestamp = cln('.timestamp', parent)
+    timestamp.querySelector('.capture-now').addEventListener('click', () => {
+      const dateCapture = formatTime(new Date())
+      qsT(timestamp, '.time-display', dateCapture)
+    })
+  }
+
   document.addEventListener('DOMContentLoaded', () => {
     let it = 0
     while(it++ < 6) {
-      createNumber('.odometer')
+      createNumber('.container .odometer')
     }
+    createTimestampable('.container .timestamp')
   })
 })();
