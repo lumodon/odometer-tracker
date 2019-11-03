@@ -1,4 +1,5 @@
 (() => {
+  const expireDateModifier = 7 * 24 * 60 * 60 * 1000
   const qs = sel => document.querySelector(sel)
   const qsa = sel => Array.from(document.querySelectorAll(sel))
   const cln = (node, parent) => {
@@ -11,10 +12,41 @@
     targetNode.innerText = value
     return targetNode
   }
+  const readCookieKey = (cookie, key) => cookie.replace(
+    new RegExp(`(?:(?:^|.*;\\s*)${key}\\s*\\=\\s*([^;]*).*$)|^.*$`, 'g'), '$1'
+  )
 
-  const createNumber = (parent) => {
+  const formatToQueryStr = className =>
+    className.replace(/\s/g, '.').replace(/^/g, '.')
+
+  function loadState() {
+    const cookie = document.cookie
+    const cookieValue = cookie && readCookieKey(cookie, 'state')
+    if(!cookie || !cookieValue) return
+    try {
+      const parsedCookie = JSON.parse(cookieValue)
+      parsedCookie.forEach(item => {
+        qsT(qs`.container`, formatToQueryStr(item.owner), item.value)
+      })
+    } catch(e) {
+      qsT(document, '.notification', e.message)
+      console.error(e)
+    }
+  }
+
+  function saveState() {
+    const values = qsa`.container .capture`.map(item => ({
+      owner: item.className,
+      value: item.innerText
+    }))
+    document.cookie = `state=${JSON.stringify(values)}` +
+      `;expires=${new Date(Date.now() + expireDateModifier).toUTCString()}`
+  }
+
+  const createNumber = (parent, key) => {
     const number = cln('.editable-number', parent)
     const numberNode = qsT(number, '.number', '0')
+    numberNode.classList.add(`i${key}`)
     number.querySelector('.up').addEventListener('click', () => {
       const currVal = Number(numberNode.innerText)
       if((currVal + 1) > 9) {
@@ -56,10 +88,14 @@
   }
 
   document.addEventListener('DOMContentLoaded', () => {
+    window.addEventListener('beforeunload', saveState)
+    qs`.save`.addEventListener('click', saveState)
+
     let it = 0
     while(it++ < 6) {
-      createNumber('.container .odometer')
+      createNumber('.container .odometer', it)
     }
     createTimestampable('.container .timestamp')
+    loadState()
   })
 })();
